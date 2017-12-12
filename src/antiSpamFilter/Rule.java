@@ -1,4 +1,4 @@
-package Group73;
+package antiSpamFilter;
 
 public class Rule {
 

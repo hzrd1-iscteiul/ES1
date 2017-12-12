@@ -1,4 +1,4 @@
-package Group73;
+package antiSpamFilter;
 
 import java.util.ArrayList;
 
