@@ -13,7 +13,7 @@ public class Mail {
 		return instance;
 	}
 
-	private Window window = new Window();
+	private GUI g = new GUI();
 	private Read read = new Read();
 	private ArrayList<Email> fp = new ArrayList<>();
 	private int falsospositivos = fp.size();
@@ -78,19 +78,19 @@ public class Mail {
 	}
 
 	public void start() {
-		window.open();
+		g.showGUI();
 		choosetype();
 		showfpfn();
 
 	}
 
-	public Window getWindow() {
-		return window;
+	public GUI getGUI() {
+		return g;
 	}
-
-	public void setWindow(Window window) {
-		this.window = window;
-	}
+//
+//	public void setWindow(Window window) {
+//		this.window = window;
+//	}
 
 	public Read getRead() {
 		return read;

@@ -6,6 +6,7 @@
 package antiSpamFilter;
 
 import javax.swing.JFileChooser;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -19,6 +20,12 @@ public class GUI extends javax.swing.JFrame {
      */
     public GUI() {
         initComponents();
+        
+        setLocationRelativeTo(null);
+        setResizable(false);
+
+        rules_path.setText(System.getProperty("user.dir")+"\\AntiSpamConfigurationForProfessionalMailbox\\rules.cf");
+        rulesList.getTableHeader().setReorderingAllowed(false);
     }
 
     /**
@@ -250,15 +257,11 @@ public class GUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    public void showGUI() {
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code">
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -273,13 +276,9 @@ public class GUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUI().setVisible(true);
-            }
-        });
+        
+        setVisible(true);
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -304,4 +303,17 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField spam_path;
     private javax.swing.JButton start;
     // End of variables declaration//GEN-END:variables
+    
+    
+    public String getSpam_Path () {
+    	return spam_path.getText();
+    }
+    
+    public String getHam_Path () {
+    	return ham_path.getText();
+    }
+    
+    public String getRules_Path () {
+    	return rules_path.getText();
+    }
 }
