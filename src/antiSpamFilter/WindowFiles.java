@@ -14,11 +14,11 @@ public class WindowFiles {
 	private JLabel ham;
 	private JLabel spam;
 	private JTextField file1;
-	private String pathtorules = "C://Users//msi//git////ES1-2017-IC1-73//src//Group73//rules.cf";
+	private String pathtorules = "D://Documentos//Nova pasta//ES1-2017-IC1-73//AntiSpamConfigurationForProfessionalMailbox//rules.cf";
 	private JTextField file2;
-	private String pathtoham = "C://Users//msi//git//ES1-2017-IC1-73//src//Group73//ham.log";
+	private String pathtoham = "D://Documentos//Nova pasta//ES1-2017-IC1-73//src//antiSpamFilter//ham.log";
 	private JTextField file3;
-	private String pathtospam = "C://Users//msi//git//ES1-2017-IC1-73//src//Group73//spam.log";
+	private String pathtospam = "D://Documentos//Nova pasta//ES1-2017-IC1-73//src//antiSpamFilter//spam.log";
 
 	/**
 	 * Cria a interface e abre os caminhos para os ficheiros pretendidos

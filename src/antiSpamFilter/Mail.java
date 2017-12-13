@@ -59,6 +59,7 @@ public class Mail {
 						fn.add(read.getEmails().get(i));
 					}
 				}
+				System.out.println("Entrou nos falsos positivos");
 
 			}
 			if (read.getEmails().get(i) instanceof NonSpam) {
@@ -67,6 +68,7 @@ public class Mail {
 						fp.add(read.getEmails().get(i));
 					}
 				}
+				System.out.println("Entrou nos falsos Negativos");
 
 			}
 
@@ -78,6 +80,7 @@ public class Mail {
 	public void start() {
 		window.open();
 		choosetype();
+		showfpfn();
 
 	}
 
