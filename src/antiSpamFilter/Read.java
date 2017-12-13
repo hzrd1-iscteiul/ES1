@@ -46,7 +46,7 @@ public class Read {
 	 * @param path
 	 */
 	public void readRules() {
-		String path = Mail.getInstance().getWindow().getWindowFiles().getPathtorules();
+		String path = Mail.getInstance().getGUI().getRules_Path();
 		ArrayList<String> list = readFiletoList(path);
 		for (int i = 0; i < list.size(); i++) {
 			Rule r = new Rule(list.get(i), 0);
@@ -62,8 +62,8 @@ public class Read {
 	 * 
 	 * @param path
 	 */
-	public void readNonSpam() {
-		String path = Mail.getInstance().getWindow().getWindowFiles().getPathtoham();
+	public void readHam() {
+		String path = Mail.getInstance().getGUI().getHam_Path();
 		ArrayList<String> list = readFiletoList(path);
 		for (int i = 0; i < list.size(); i++) {
 			String aux = list.get(i);
@@ -87,7 +87,7 @@ public class Read {
 	 * @param path
 	 */
 	public void readSpam() {
-		String path = Mail.getInstance().getWindow().getWindowFiles().getPathtospam();
+		String path = Mail.getInstance().getGUI().getSpam_Path();
 		ArrayList<String> list = readFiletoList(path);
 		for (int i = 0; i < list.size(); i++) {
 			String aux = list.get(i);
