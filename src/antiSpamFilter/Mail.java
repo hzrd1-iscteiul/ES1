@@ -1,6 +1,7 @@
 package antiSpamFilter;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Mail {
 
@@ -62,7 +63,7 @@ public class Mail {
 				System.out.println("Entrou nos falsos positivos");
 
 			}
-			if (read.getEmails().get(i) instanceof NonSpam) {
+			if (read.getEmails().get(i) instanceof Ham) {
 				for (int y = 0; y < toldspam.size(); y++) {
 					if (read.getEmails().get(i).equals(toldspam.get(y))) {
 						fp.add(read.getEmails().get(i));
@@ -79,9 +80,24 @@ public class Mail {
 
 	public void start() {
 		g.showGUI();
+		generatweigths();
 		choosetype();
 		showfpfn();
 
+	}
+	
+	/**
+	 * Gerar valores aleatórios para as rules entre -5 e 5
+	 * @return
+	 */
+	public void generatweigths() {
+		
+		Random r= new Random();
+		for(int i=0; i<read.getRules().size();i++) {
+			read.getRules().get(i).setWeight((int) (Math.random() * (5- (-5)) + (-5)));
+			System.out.println("Weigth:"+read.getRules().get(i).getWeight());
+		}
+		
 	}
 
 	public GUI getGUI() {

@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Read {
 
 	private ArrayList<Rule> rules = new ArrayList<Rule>();
-	private ArrayList<NonSpam> nonspams = new ArrayList<NonSpam>();
+	private ArrayList<Ham> ham = new ArrayList<Ham>();
 	private ArrayList<Spam> spams = new ArrayList<Spam>();
 	private ArrayList<Email> emails = new ArrayList<Email>();
 
@@ -73,8 +73,8 @@ public class Read {
 				Rule rulens = new Rule(auxs[y], 0);
 				rns.add(rulens);
 			}
-			NonSpam ns = new NonSpam(auxs[0], rns);
-			nonspams.add(ns);
+			Ham ns = new Ham(auxs[0], rns);
+			ham.add(ns);
 			emails.add(ns);
 			System.out.println(ns.toString());
 		}
@@ -156,12 +156,12 @@ public class Read {
 		this.rules = rules;
 	}
 
-	public ArrayList<NonSpam> getNonspams() {
-		return nonspams;
+	public ArrayList<Ham> getHam() {
+		return ham;
 	}
 
-	public void setNonspams(ArrayList<NonSpam> nonspams) {
-		this.nonspams = nonspams;
+	public void setNonspams(ArrayList<Ham> ham) {
+		this.ham = ham;
 	}
 
 	public ArrayList<Spam> getSpams() {

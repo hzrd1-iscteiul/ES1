@@ -316,4 +316,13 @@ public class GUI extends javax.swing.JFrame {
     public String getRules_Path () {
     	return rules_path.getText();
     }
+
+	public javax.swing.JTable getRulesList() {
+		return rulesList;
+	}
+
+	public void setRulesList(javax.swing.JTable rulesList) {
+		this.rulesList = rulesList;
+	}
+    
 }
