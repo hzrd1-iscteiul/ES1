@@ -28,11 +28,13 @@ public class Mail {
 	 * coloca-os na respectiva lista
 	 */
 	public void choosetype() {
-
+		System.out.println("Choose type");
+	
 		for (int i = 0; i < read.getEmails().size(); i++) {
 			int count = 0;
 			for (int y = 0; y < read.getEmails().get(i).getRules().size(); y++) {
 				count = count + read.getEmails().get(i).getRules().get(y).getWeight();
+				System.out.println("Weigth:" + read.getEmails().get(i).getRules().get(y).getWeight());
 				System.out.println("Count esta a valor:" + count + "para a rule"
 						+ read.getEmails().get(i).getRules().get(y).getName());
 
@@ -74,39 +76,76 @@ public class Mail {
 			}
 
 		}
-		System.out.println("Falsos Positivos"+falsospositivos+"Falsos Negativos"+falsosnegativos);
+		System.out.println("Falsos Positivos" + falsospositivos + "Falsos Negativos" + falsosnegativos);
 
 	}
 
 	public void start() {
-		g.showGUI();
+		// g.showGUI();
+		read.readRules();
+		read.readHam();
+		read.readSpam();
 		generatweigths();
+		update();
 		choosetype();
 		showfpfn();
 
 	}
-	
+
 	/**
 	 * Gerar valores aleatórios para as rules entre -5 e 5
+	 * 
 	 * @return
 	 */
 	public void generatweigths() {
-		
-		Random r= new Random();
-		for(int i=0; i<read.getRules().size();i++) {
-			read.getRules().get(i).setWeight((int) (Math.random() * (5- (-5)) + (-5)));
-			System.out.println("Weigth:"+read.getRules().get(i).getWeight());
+		System.out.println("generate weigth");
+		System.out.println(read.getRules().toString());
+		Random r = new Random();
+		for (int i = 0; i < read.getRules().size(); i++) {
+			read.getRules().get(i).setWeight((int) (Math.random() * (5 - (-5)) + (-5)));
+			System.out.println("Weigth:" + read.getRules().get(i).getWeight());
 		}
-		
+
+	}
+
+	/**
+	 * Faz um update do valor das rules nas arraylists
+	 * 
+	 * @return
+	 */
+	public void update() {
+		for (int k = 0; k < read.getRules().size(); k++) {
+			for (int i = 0; i < read.getEmails().size(); i++) {
+				for(int f=0;f<read.getEmails().get(i).getRules().size();f++) {
+					if(read.getEmails().get(i).getRules().get(f).getName().equals(read.getRules().get(k).getName())) {
+						read.getEmails().get(i).getRules().get(f).setWeight(read.getRules().get(k).getWeight());
+					}
+				}
+			}
+			for (int j = 0; j < read.getHam().size(); j++) {
+				for(int f=0;f<read.getHam().get(j).getRules().size();f++) {
+					if(read.getHam().get(j).getRules().get(f).getName().equals(read.getRules().get(k).getName())) {
+						read.getHam().get(j).getRules().get(f).setWeight(read.getRules().get(k).getWeight());
+					}
+				}
+			}
+			for (int m = 0; m < read.getSpams().size(); m++) {
+				for(int f=0;f<read.getSpams().get(m).getRules().size();f++) {
+					if(read.getSpams().get(m).getRules().get(f).getName().equals(read.getRules().get(k).getName())) {
+						read.getSpams().get(m).getRules().get(f).setWeight(read.getRules().get(k).getWeight());
+					}
+				}
+			}
+		}
 	}
 
 	public GUI getGUI() {
 		return g;
 	}
-//
-//	public void setWindow(Window window) {
-//		this.window = window;
-//	}
+	//
+	// public void setWindow(Window window) {
+	// this.window = window;
+	// }
 
 	public Read getRead() {
 		return read;
@@ -152,5 +191,4 @@ public class Mail {
 		this.falsosnegativos = falsosnegativos;
 	}
 
-	
 }

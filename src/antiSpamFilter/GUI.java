@@ -306,11 +306,14 @@ public class GUI extends javax.swing.JFrame {
     
     
     public String getSpam_Path () {
-    	return spam_path.getText();
+    	
+    	//return spam_path.getText();
+    	return("D://Documentos//Nova pasta//ES1-2017-IC1-73//src//antiSpamFilter//spam.log");
     }
     
     public String getHam_Path () {
-    	return ham_path.getText();
+    	//return ham_path.getText();
+    	return("D://Documentos//Nova pasta//ES1-2017-IC1-73//src//antiSpamFilter//ham.log");
     }
     
     public String getRules_Path () {
