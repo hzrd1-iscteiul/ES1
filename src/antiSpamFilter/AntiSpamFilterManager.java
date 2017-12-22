@@ -61,6 +61,10 @@ public class AntiSpamFilterManager {
 		}
 	}
 	
+	public ArrayList<Rule> getRulesList(){
+		return gui.getRulesList();
+	}
+	
 	public void saveRules () {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(gui.getRules_Path()));
@@ -78,7 +82,7 @@ public class AntiSpamFilterManager {
 	
 	private double test_mail(String[] rules, ArrayList<Rule> rulesList) {
 		double MailTotalWeigth = 0.0;
-		for (String rule : rules) {
+        for (String rule : rules) {
             for (Rule r : rulesList) {
                 if (r.getName().equals(rule)) {
                     MailTotalWeigth += r.getWeight();
@@ -89,8 +93,7 @@ public class AntiSpamFilterManager {
 		return MailTotalWeigth;
 	}
 	
-	private Results evaluate() {
-		ArrayList<Rule> rules = gui.getRulesList(); 
+	public Results evaluate(ArrayList<Rule> rules) { 
 		int fp=0;	
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(gui.getHam_Path()));
@@ -112,7 +115,7 @@ public class AntiSpamFilterManager {
 	        while ((line = reader.readLine()) != null) {
 	            String[] mail_rules = line.split("\t");
 	            double mail_values  = test_mail(mail_rules, rules);
-	            if (mail_values >= 5)
+	            if (mail_values < 5)
 	                fn++;
 	        }
 	        reader.close();
@@ -121,14 +124,67 @@ public class AntiSpamFilterManager {
         }
 		return new Results(fp, fn);
 	}
+
+	private ArrayList<Rule> getJMetalBest() {
+		ArrayList<Rule> rules = gui.getRulesList();
+		
+		int best = -1;
+		try {
+            BufferedReader jmetal = new BufferedReader(new FileReader("experimentBaseDirectory\\AntiSpamStudy\\data\\NSGAII\\AntiSpamFilterProblem\\BEST_HV_FUN.tsv"));
+            double best_fp = -1, best_fn = -1;
+            String line;
+            int linecounter = 0;
+            while ((line = jmetal.readLine()) != null) {
+            	String [] fp_fn = line.split(" ");
+                double fp = Double.parseDouble(fp_fn[0]);
+                double fn = Double.parseDouble(fp_fn[1]);
+                if (best == -1) {
+                    best = 0;
+                    best_fp = fp;
+                    best_fn = fn;
+                } else { 
+                	if (fp < best_fp && fn > best_fn) {
+                		best = linecounter;
+                    	best_fp = fp;
+                    	best_fn = fn;
+                	}
+                }
+                linecounter++;
+            }
+            
+            BufferedReader values = new BufferedReader(new FileReader("experimentBaseDirectory\\AntiSpamStudy\\data\\NSGAII\\AntiSpamFilterProblem\\BEST_HV_VAR.tsv"));
+            linecounter = 0;
+            line = values.readLine();
+            while (linecounter != best) {
+                line = values.readLine();
+                linecounter++;
+            }
+            String[] weights = line.split(" ");
+            for (int i = 0; i < rules.size(); i++) {
+                rules.get(i).setWeight( Double.parseDouble(weights[i]));
+            }
+            values.close();
+            jmetal.close();
+        } catch (IOException e) {
+            System.out.println("Make sure you have access to the experimentBaseDirectory folder.");
+        }
+		return rules;
+	}
 	
 	//TODO
 	public void automatic () {
-		
+		try {
+			AntiSpamFilterAutomaticConfiguration.runJMetal();
+		} catch (IOException e) {
+			System.out.println("JMetal something went wrong.");
+		}
+        ArrayList<Rule> rules = getJMetalBest();
+		gui.setRulesList(rules);
+		gui.setResults(evaluate(rules));
 	}
 	
 	public void manual () {
-		 gui.setResults(evaluate());
+		 gui.setResults(evaluate(gui.getRulesList()));
 	}
 
 	public static void main(String[] args) {

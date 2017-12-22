@@ -24,7 +24,7 @@ import java.util.List;
 public class AntiSpamFilterAutomaticConfiguration {
   private static final int INDEPENDENT_RUNS = 5 ;
 
-  public static void main(String[] args) throws IOException {
+  public static void runJMetal() throws IOException{
     String experimentBaseDirectory = "experimentBaseDirectory";
 //
     List<ExperimentProblem<DoubleSolution>> problemList = new ArrayList<>();
@@ -40,7 +40,7 @@ public class AntiSpamFilterAutomaticConfiguration {
             .setExperimentBaseDirectory(experimentBaseDirectory)
             .setOutputParetoFrontFileName("FUN")
             .setOutputParetoSetFileName("VAR")
-            .setReferenceFrontDirectory(experimentBaseDirectory+"/RESULTADOS")
+            .setReferenceFrontDirectory(experimentBaseDirectory+"/referenceFronts")
             .setIndicatorList(Arrays.asList(new PISAHypervolume<DoubleSolution>()))
             .setIndependentRuns(INDEPENDENT_RUNS)
             .setNumberOfCores(8)
@@ -63,7 +63,7 @@ public class AntiSpamFilterAutomaticConfiguration {
               problemList.get(i).getProblem(),
               new SBXCrossover(1.0, 5),
               new PolynomialMutation(1.0 / problemList.get(i).getProblem().getNumberOfVariables(), 10.0))
-              .setMaxEvaluations(25000)
+              .setMaxEvaluations(2000)
               .setPopulationSize(100)
               .build();
       algorithms.add(new ExperimentAlgorithm<>(algorithm, "NSGAII", problemList.get(i).getTag()));
