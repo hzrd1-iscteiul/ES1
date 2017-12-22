@@ -13,7 +13,10 @@ import javax.swing.SwingUtilities;
 public class AntiSpamFilterManager {
 	
 	private static AntiSpamFilterManager instance;
-
+/**
+ * Cria uma instancia da classe
+ * @return
+ */
 	public static AntiSpamFilterManager getInstance() {
 		if (instance == null)
 			instance = new AntiSpamFilterManager();
@@ -26,7 +29,9 @@ public class AntiSpamFilterManager {
 		startGUI();
 		loadRules();
 	}
-	
+	/**
+	 * Inicia a interface
+	 */
 	private void startGUI() {
 		gui = new GUI();
 		gui.setLookGUI();
@@ -41,7 +46,9 @@ public class AntiSpamFilterManager {
 	public GUI getGUI() {
 		return gui;
 	}
-	
+	/**
+	 * Lê as rules e insere-as na interface
+	 */
 	public void loadRules () {
 		ArrayList <Rule> ruleList = new ArrayList<>();
 		try {
@@ -67,7 +74,9 @@ public class AntiSpamFilterManager {
 	public ArrayList<Rule> getRulesList(){
 		return gui.getRulesList();
 	}
-	
+	/**
+	 * Altera os valores das rules que foram alteradas
+	 */
 	public void saveRules () {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(gui.getRules_Path()));
@@ -80,7 +89,10 @@ public class AntiSpamFilterManager {
 		} catch (IOException e) {
 		}
 	}
-	
+/**
+ * Gera valores aleatórios para as rules	
+ * @return
+ */
 	public ArrayList<Rule> random_values() {
 		Random r= new Random();
     	ArrayList<Rule> rules = gui.getRulesList();
@@ -90,6 +102,12 @@ public class AntiSpamFilterManager {
     	return rules;
 	}
 	
+	/**
+	 * Peso total das regras daquele email
+	 * @param rules
+	 * @param rulesList
+	 * @return
+	 */
 	private double test_mail(String[] rules, ArrayList<Rule> rulesList) {
 		double MailTotalWeigth = 0.0;
         for (String rule : rules) {
@@ -102,7 +120,11 @@ public class AntiSpamFilterManager {
         }
 		return MailTotalWeigth;
 	}
-	
+	/**
+	 * Verifica se os ficheiros fornecidos são os corretos
+	 * @param rules
+	 * @return
+	 */
 	public Results evaluate(ArrayList<Rule> rules) { 
 		int fp=0;	
 		try {
@@ -135,6 +157,10 @@ public class AntiSpamFilterManager {
 		return new Results(fp, fn);
 	}
 
+	/**
+	 * Seleciona do agoritmo o melhor conjunto de valores de peso para as regras de forma a obtermos um SPAM Profissional
+	 * @return
+	 */
 	private ArrayList<Rule> getJMetalBest() {
 		ArrayList<Rule> rules = gui.getRulesList();
 		
@@ -180,7 +206,9 @@ public class AntiSpamFilterManager {
         }
 		return rules;
 	}
-	
+	/**
+	 * Escreve os resultados do automatico
+	 */
 	//TODO
 	public void automatic () {
 		try {
@@ -192,7 +220,9 @@ public class AntiSpamFilterManager {
 		gui.setRulesList(rules);
 		gui.setResults(evaluate(rules));
 	}
-	
+	/**
+	 * Escreve os resultados do manual
+	 */
 	public void manual () {
 		 gui.setResults(evaluate(gui.getRulesList()));
 	}
