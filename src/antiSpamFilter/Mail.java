@@ -81,7 +81,7 @@ public class Mail {
 	}
 
 	public void start() {
-		// g.showGUI();
+		 g.showGUI();
 		read.readRules();
 		read.readHam();
 		read.readSpam();

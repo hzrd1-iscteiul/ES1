@@ -5,13 +5,15 @@
  */
 package antiSpamFilter;
 
+import java.util.ArrayList;
+
 import javax.swing.JFileChooser;
-import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.TableModel;
 
 /**
  *
- * @author Rafael
+ * @author Humaira
  */
 public class GUI extends javax.swing.JFrame {
 
@@ -257,7 +259,7 @@ public class GUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public void showGUI() {
+    public void setLookGUI() {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code">
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -275,10 +277,7 @@ public class GUI extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        
-        setVisible(true);
-        SwingUtilities.updateComponentTreeUI(this);
+        //</editor-fold>     
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -306,26 +305,45 @@ public class GUI extends javax.swing.JFrame {
     
     
     public String getSpam_Path () {
-    	
-    	//return spam_path.getText();
-    	return("D://Documentos//Nova pasta//ES1-2017-IC1-73//src//antiSpamFilter//spam.log");
+    	return spam_path.getText();
     }
     
     public String getHam_Path () {
-    	//return ham_path.getText();
-    	return("D://Documentos//Nova pasta//ES1-2017-IC1-73//src//antiSpamFilter//ham.log");
+    	return ham_path.getText();
     }
     
     public String getRules_Path () {
     	return rules_path.getText();
     }
 
-	public javax.swing.JTable getRulesList() {
-		return rulesList;
+	public void setRulesList(ArrayList<Rule> rules) {
+		String rules_matrix [][] = new String [rules.size()][2];
+        for(int i=0; i<rules.size(); i++) {
+        	rules_matrix [i][0] = rules.get(i).getName();
+        	rules_matrix [i][1] = String.valueOf(rules.get(i).getWeight());
+        }
+        rulesList.setModel(new javax.swing.table.DefaultTableModel(rules_matrix,new String [] {"Rules", "Weight"}));
 	}
+	
+	public ArrayList<Rule> getRulesList(){
+		ArrayList<Rule> rules = new ArrayList<>();
+		TableModel rulesListModel = rulesList.getModel();
+		
+		for(int i=0; i<rulesListModel.getRowCount(); i++){
+            String rule = (String)rulesListModel.getValueAt(i,0);
+            double weight = Double.parseDouble((String)rulesListModel.getValueAt(i,1));
+            rules.add(new Rule(rule,weight));
+		}
+		
+		return rules;
+	}
+	
+    public void setFP(int i){
+    	nFP.setText(i+"");
+    }
 
-	public void setRulesList(javax.swing.JTable rulesList) {
-		this.rulesList = rulesList;
-	}
+    public void setFN(int i){
+        nFN.setText(i+"");
+    }
     
 }
