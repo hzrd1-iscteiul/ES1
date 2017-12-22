@@ -59,6 +59,7 @@ public class GUI extends javax.swing.JFrame {
         nFP = new javax.swing.JLabel();
         nFN = new javax.swing.JLabel();
         randomValues = new javax.swing.JButton();
+        save = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,6 +106,11 @@ public class GUI extends javax.swing.JFrame {
         manualButton.setText("Manual");
 
         start.setText("Start");
+        start.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startActionPerformed(evt);
+            }
+        });
 
         rulesList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -140,6 +146,18 @@ public class GUI extends javax.swing.JFrame {
         nFN.setText("0");
 
         randomValues.setText("Generate Values");
+        randomValues.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                randomValuesActionPerformed(evt);
+            }
+        });
+
+        save.setText("Save");
+        save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,6 +166,7 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -161,9 +180,7 @@ public class GUI extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(rules)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2)
-                                    .addComponent(rules_path))))
+                                .addComponent(rules_path)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rulesButton)
@@ -171,13 +188,15 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(spamButton)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(autoButton)
-                        .addGap(30, 30, 30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(manualButton)
-                        .addGap(51, 51, 51)
-                        .addComponent(start)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(start, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 327, Short.MAX_VALUE)
                         .addComponent(randomValues)
-                        .addGap(184, 184, 184)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(save)
+                        .addGap(18, 18, 18)
                         .addComponent(fp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(nFP)
@@ -216,7 +235,8 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(nFP)
                     .addComponent(fn)
                     .addComponent(nFN)
-                    .addComponent(randomValues))
+                    .addComponent(randomValues)
+                    .addComponent(save))
                 .addContainerGap())
         );
 
@@ -255,6 +275,18 @@ public class GUI extends javax.swing.JFrame {
             rules_path.setText(path_chooser.getSelectedFile().getPath());
         }
     }//GEN-LAST:event_rulesButtonActionPerformed
+
+    private void startActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_startActionPerformed
+
+    private void randomValuesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_randomValuesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_randomValuesActionPerformed
+
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -297,6 +329,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton rulesButton;
     private javax.swing.JTable rulesList;
     private javax.swing.JTextField rules_path;
+    private javax.swing.JButton save;
     private javax.swing.JLabel spam;
     private javax.swing.JButton spamButton;
     private javax.swing.JTextField spam_path;
