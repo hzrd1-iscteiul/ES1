@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.SwingUtilities;
 
@@ -37,7 +38,11 @@ public class AntiSpamFilterManager {
         });  
 	}
 	
-	private void loadRules () {
+	public GUI getGUI() {
+		return gui;
+	}
+	
+	public void loadRules () {
 		ArrayList <Rule> ruleList = new ArrayList<>();
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(gui.getRules_Path()));
@@ -56,8 +61,6 @@ public class AntiSpamFilterManager {
 			reader.close();
 			gui.setRulesList(ruleList);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 	
@@ -75,9 +78,16 @@ public class AntiSpamFilterManager {
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<Rule> random_values() {
+		Random r= new Random();
+    	ArrayList<Rule> rules = gui.getRulesList();
+    	for(Rule rule : rules) {
+    	 	rule.setWeight((Math.random() * (5- (-5)) + (-5)));
+    	}
+    	return rules;
 	}
 	
 	private double test_mail(String[] rules, ArrayList<Rule> rulesList) {
@@ -185,9 +195,5 @@ public class AntiSpamFilterManager {
 	
 	public void manual () {
 		 gui.setResults(evaluate(gui.getRulesList()));
-	}
-
-	public static void main(String[] args) {
-		AntiSpamFilterManager.getInstance();
 	}
 }

@@ -16,10 +16,6 @@ public class Rule {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public double getWeight() {
 		return weight;
 	}

@@ -290,12 +290,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_startActionPerformed
 
     private void randomValuesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_randomValuesActionPerformed
-    	Random r= new Random();
-    	ArrayList<Rule> rules = getRulesList();
-    	for(Rule rule : rules) {
-    	 	rule.setWeight((Math.random() * (5- (-5)) + (-5)));
-    	}
-    	setRulesList(rules);
+    	setRulesList(AntiSpamFilterManager.getInstance().random_values());
     }//GEN-LAST:event_randomValuesActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
@@ -328,26 +323,26 @@ public class GUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup ButtonGroup;
-    private javax.swing.JRadioButton autoButton;
+    public javax.swing.JRadioButton autoButton;
     private javax.swing.JLabel fn;
     private javax.swing.JLabel fp;
     private javax.swing.JLabel ham;
     private javax.swing.JButton hamButton;
     private javax.swing.JTextField ham_path;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JRadioButton manualButton;
+    public javax.swing.JRadioButton manualButton;
     private javax.swing.JLabel nFN;
     private javax.swing.JLabel nFP;
-    private javax.swing.JButton randomValues;
+    public javax.swing.JButton randomValues;
     private javax.swing.JLabel rules;
     private javax.swing.JButton rulesButton;
     private javax.swing.JTable rulesList;
     private javax.swing.JTextField rules_path;
-    private javax.swing.JButton save;
+    public javax.swing.JButton save;
     private javax.swing.JLabel spam;
     private javax.swing.JButton spamButton;
     private javax.swing.JTextField spam_path;
-    private javax.swing.JButton start;
+    public javax.swing.JButton start;
     // End of variables declaration//GEN-END:variables
     
     
@@ -389,5 +384,25 @@ public class GUI extends javax.swing.JFrame {
 	public void setResults(Results r) {
 		nFP.setText(r.getFp()+"");
 		nFN.setText(r.getFn()+"");
+	}
+
+	public void setSpam_Path(String string) {
+		spam_path.setText(string);
+	}
+
+	public void setHamPath(String string) {
+		ham_path.setText(string);
+	}
+
+	public int getFP() {
+		return Integer.parseInt(nFP.getText());
+	}
+	
+	public int getFN() {
+		return Integer.parseInt(nFN.getText());
+	}
+
+	public void setRules_Path(String string) {
+		rules_path.setText(string);
 	}
 }
