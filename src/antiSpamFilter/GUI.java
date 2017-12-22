@@ -6,9 +6,11 @@
 package antiSpamFilter;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
@@ -277,15 +279,27 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_rulesButtonActionPerformed
 
     private void startActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startActionPerformed
-        // TODO add your handling code here:
+    	if(manualButton.isSelected() || autoButton.isSelected()) {
+            if (autoButton.isSelected()) {
+            	AntiSpamFilterManager.getInstance().automatic();
+            }
+            else {
+            	AntiSpamFilterManager.getInstance().manual();
+            }
+    	}
     }//GEN-LAST:event_startActionPerformed
 
     private void randomValuesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_randomValuesActionPerformed
-        // TODO add your handling code here:
+    	Random r= new Random();
+    	ArrayList<Rule> rules = getRulesList();
+    	for(Rule rule : rules) {
+    	 	rule.setWeight((Math.random() * (5- (-5)) + (-5)));
+    	}
+    	setRulesList(rules);
     }//GEN-LAST:event_randomValuesActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        // TODO add your handling code here:
+        AntiSpamFilterManager.getInstance().saveRules();
     }//GEN-LAST:event_saveActionPerformed
 
     /**
@@ -355,7 +369,8 @@ public class GUI extends javax.swing.JFrame {
         	rules_matrix [i][0] = rules.get(i).getName();
         	rules_matrix [i][1] = String.valueOf(rules.get(i).getWeight());
         }
-        rulesList.setModel(new javax.swing.table.DefaultTableModel(rules_matrix,new String [] {"Rules", "Weight"}));
+        DefaultTableModel model = new DefaultTableModel(rules_matrix,new String [] {"Rules", "Weight"});
+        rulesList.setModel(model);
 	}
 	
 	public ArrayList<Rule> getRulesList(){
@@ -371,12 +386,8 @@ public class GUI extends javax.swing.JFrame {
 		return rules;
 	}
 	
-    public void setFP(int i){
-    	nFP.setText(i+"");
-    }
-
-    public void setFN(int i){
-        nFN.setText(i+"");
-    }
-    
+	public void setResults(Results r) {
+		nFP.setText(r.getFp()+"");
+		nFN.setText(r.getFn()+"");
+	}
 }
