@@ -275,7 +275,7 @@ public class GUI extends javax.swing.JFrame {
         int returnVal = path_chooser.showOpenDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
             rules_path.setText(path_chooser.getSelectedFile().getPath());
-        }
+            AntiSpamFilterManager.getInstance().loadRules();        }
     }//GEN-LAST:event_rulesButtonActionPerformed
 
     private void startActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startActionPerformed
